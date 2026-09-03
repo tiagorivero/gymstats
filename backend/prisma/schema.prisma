@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum EstadoSocio {
+  ACTIVO
+  INACTIVO
+
+  @@map("estado_socio")
+}
+
+model Usuario {
+  id       String   @id @default(uuid()) @db.Uuid
+  nombre   String
+  email    String   @unique
+  password String
+  activo   Boolean  @default(true)
+  creadoEn DateTime @default(now()) @map("creado_en")
+
+  @@map("usuarios")
+}
+
+model Socio {
+  id            String      @id @default(uuid()) @db.Uuid
+  nombre        String
+  apellido      String
+  telefono      String?
+  email         String?
+  fotoUrl       String?     @map("foto_url")
+  qrToken       String      @unique @map("qr_token")
+  venceEl       DateTime?   @map("vence_el")
+  estado        EstadoSocio @default(ACTIVO)
+  fechaAlta     DateTime    @default(now()) @map("fecha_alta")
+  fechaBaja     DateTime?   @map("fecha_baja")
+  notas         String?
+  creadoEn      DateTime    @default(now()) @map("creado_en")
+  actualizadoEn DateTime    @updatedAt @map("actualizado_en")
+
+  asistencias Asistencia[]
+
+  @@index([estado, venceEl])
+  @@index([apellido, nombre])
+  @@map("socios")
+}
+
+model Asistencia {
+  id       String   @id @default(uuid()) @db.Uuid
+  socioId  String   @map("socio_id") @db.Uuid
+  fecha    DateTime @db.Date
+  hora     DateTime
+  creadoEn DateTime @default(now()) @map("creado_en")
+
+  socio Socio @relation(fields: [socioId], references: [id], onDelete: Cascade)
+
+  @@unique([socioId, fecha])
+  @@index([fecha])
+  @@map("asistencias")
+}

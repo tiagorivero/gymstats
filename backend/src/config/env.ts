@@ -5,6 +5,8 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.coerce.number().int().positive().default(4000),
   FRONTEND_URL: z.url({ message: 'Debe ser una URL válida (ej: http://localhost:5173)' }),
+  DATABASE_URL: z.string().min(1, 'Requerida: conexión al pooler de Postgres (puerto 6543).'),
+  DIRECT_URL: z.string().min(1, 'Requerida: conexión directa a Postgres (puerto 5432).'),
 });
 
 const resultado = envSchema.safeParse(process.env);
