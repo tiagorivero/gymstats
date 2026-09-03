@@ -7,6 +7,7 @@ const envSchema = z.object({
   FRONTEND_URL: z.url({ message: 'Debe ser una URL válida (ej: http://localhost:5173)' }),
   DATABASE_URL: z.string().min(1, 'Requerida: conexión al pooler de Postgres (puerto 6543).'),
   DIRECT_URL: z.string().min(1, 'Requerida: conexión directa a Postgres (puerto 5432).'),
+  JWT_SECRET: z.string().min(32, 'Requerida: mínimo 32 caracteres para firmar los tokens.'),
 });
 
 const resultado = envSchema.safeParse(process.env);
