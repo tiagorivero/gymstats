@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Superficies */
+    --fondo:            0 0% 100%;
+    --superficie:       220 14% 96%;
+    --borde:            220 13% 91%;
+
+    /* Texto */
+    --texto:            222 47% 11%;
+    --texto-suave:      220 9% 46%;
+
+    /* Marca */
+    --marca:            160 84% 39%;
+    --marca-contraste:  0 0% 100%;
+    --acento:           25 95% 53%;
+
+    /* Estados (semánticos, no decorativos) */
+    --exito:            142 71% 45%;
+    --alerta:           38 92% 50%;
+    --peligro:          0 72% 51%;
+
+    /* Forma y tipografía */
+    --radio:            0.75rem;
+    --fuente-titulo:    'Sora', system-ui, sans-serif;
+    --fuente-texto:     'Inter', system-ui, sans-serif;
+  }
+
+  /* Un tema alternativo se define SOLO acá. Cero cambios en los componentes. */
+  [data-tema="box"] {
+    --fondo:            0 0% 7%;
+    --superficie:       0 0% 12%;
+    --borde:            0 0% 20%;
+    --texto:            0 0% 98%;
+    --texto-suave:      0 0% 64%;
+    --marca:            72 100% 50%;
+    --marca-contraste:  0 0% 7%;
+    --radio:            0.25rem;
+    --fuente-titulo:    'Archivo Black', system-ui, sans-serif;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-fondo font-texto text-texto antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-titulo;
+  }
+
+  :focus-visible {
+    @apply outline-none;
+  }
+}
