@@ -2,6 +2,8 @@
 
 Management software for small gyms: member tracking, QR check-in, and a public landing page, sharing one backend.
 
+Link: https://tiagorivero-gymstats.netlify.app/
+
 ## Tech stack
 
 **Backend:** Express + TypeScript, Prisma + PostgreSQL (Supabase), Zod, JWT + bcrypt
